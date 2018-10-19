@@ -1,0 +1,19 @@
+version: '3'
+services:
+  postgresql:
+    image: philo-pg
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.postgresql
+    ports:
+      - 5432:5432
+  python:
+    image: pg-python
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.python
+    volumes:
+      - ../:/philo_alchemy
+      - ../../Flask-Philo-Core:/philo_core
+    links:
+      - postgresql:pgdb
