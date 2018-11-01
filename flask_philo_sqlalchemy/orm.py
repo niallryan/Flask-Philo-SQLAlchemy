@@ -2,9 +2,9 @@ from sqlalchemy import Column, Integer
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.sql import text
 
-from flask_philo.db.exceptions import NotFoundError, InvalidQueryError
-from flask_philo.db.postgresql.schema import Base
-from flask_philo.db.postgresql.connection import get_pool
+from flask_philo_sqlalchemy.exceptions import NotFoundError, InvalidQueryError
+from flask_philo_sqlalchemy.schema import Base
+from flask_philo_sqlalchemy.connection import create_pool
 
 
 class BaseManager(object):
@@ -14,7 +14,13 @@ class BaseManager(object):
     """
     def __init__(self, model):
         self._model = model
-        self._pool = get_pool()
+        self._pool = None
+
+    @property
+    def pool(self):
+        if self._pool is None:
+            self._pool = create_pool()
+        return self._pool
 
     def filter_by(
         self, order_by='id', limit=500, offset=0,
@@ -31,10 +37,10 @@ class BaseManager(object):
         """
         http://docs.sqlalchemy.org/en/latest/orm/query.html?highlight=update#sqlalchemy.orm.query.Query.with_for_update  # noqa
         """
-
         if not kwargs:
             raise InvalidQueryError(
                 "Can not execute a query without parameters")
+
         obj = self._pool.connections[connection_name].session.query(
             self._model).with_for_update(
                 nowait=True, of=self._model).filter_by(**kwargs).first()
@@ -56,7 +62,7 @@ class BaseManager(object):
         return obj
 
     def count(self, connection_name='DEFAULT'):
-        result = self._pool.connections[connection_name].session.execute(
+        result = self.pool.connections[connection_name].session.execute(
             'SELECT count(id) from {}'.format(self._model.__table__.name)
         )
 
@@ -86,18 +92,24 @@ class BaseModel(Base):
         for name, value in kwargs.items():
             if not name.startswith('_'):
                 setattr(self, name, value)
+    @property
+    def dict(self):
+        val = {
+            k: v for k, v in self.__dict__.items() if (not k.startswith('_'))
+        }
+        return val
 
     @declared_attr
     def objects(cls):
         return BaseManager(cls)
 
     def update(self, connection_name='DEFAULT'):
-        self.objects._pool.connections[connection_name].session.flush()
+        self.objects.pool.connections[connection_name].session.flush()
 
     def add(self, connection_name='DEFAULT'):
-        self.objects._pool.connections[connection_name].session.add(self)
-        self.objects._pool.connections[connection_name].session.flush()
+        self.objects.pool.connections[connection_name].session.add(self)
+        self.objects.pool.connections[connection_name].session.flush()
 
     def delete(self, connection_name='DEFAULT'):
-        self.objects._pool.connections[connection_name].session.delete(self)
-        self.objects._pool.connections[connection_name].session.flush()
+        self.objects.pool.connections[connection_name].session.delete(self)
+        self.objects.pool.connections[connection_name].session.flush()
