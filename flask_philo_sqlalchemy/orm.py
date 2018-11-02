@@ -92,6 +92,7 @@ class BaseModel(Base):
         for name, value in kwargs.items():
             if not name.startswith('_'):
                 setattr(self, name, value)
+
     @property
     def dict(self):
         val = {

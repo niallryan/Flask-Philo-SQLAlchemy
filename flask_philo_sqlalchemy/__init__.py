@@ -2,7 +2,7 @@ def syncdb(pool=None):
     """
     Create tables if they don't exist
     """
-    from flask_philo_sqlalchemy.schema import Base
+    from flask_philo_sqlalchemy.schema import Base  # noqa
     from flask_philo_sqlalchemy.orm import BaseModel  # noqa
     from flask_philo_sqlalchemy.connection import create_pool
 
@@ -14,7 +14,7 @@ def syncdb(pool=None):
 
 
 def cleandb(pool=None):
-    from flask_philo_sqlalchemy.schema import Base
+    from flask_philo_sqlalchemy.schema import Base  # noqa
     from flask_philo_sqlalchemy.orm import BaseModel  # noqa
     from flask_philo_sqlalchemy.connection import create_pool
 

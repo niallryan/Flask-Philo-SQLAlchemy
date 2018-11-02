@@ -1,6 +1,7 @@
 from flask_philo_core.test import FlaskPhiloTestCase, BaseTestFactory
 from flask_philo_sqlalchemy.connection import create_pool
 
+
 class TestDBAccess(FlaskPhiloTestCase):
     def test_postgresql_connection(self):
         """

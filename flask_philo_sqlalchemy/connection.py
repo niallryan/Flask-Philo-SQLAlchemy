@@ -54,7 +54,6 @@ class ConnectionPool:
             self.connections[connection_name].session.rollback()
 
 
-
 def create_pool():
     app = current_app._get_current_object()
     if 'Flask-Philo-SQLAlchemy' not in app.config:

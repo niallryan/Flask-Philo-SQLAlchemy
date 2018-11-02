@@ -10,4 +10,4 @@ class SQLAlchemyView(BaseResourceView):
             raise ConfigurationError(
                 'Not configuration found for Flask-Philo-SQLAlchemy')
         ctx = _app_ctx_stack.top
-        self.pool = ctx.sqlalchemy_pool
+        self.sqlalchemy_pool = ctx.sqlalchemy_pool

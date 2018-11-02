@@ -1,10 +1,8 @@
-from flask_philo_core.test import FlaskPhiloTestCase, BaseTestFactory
+from flask_philo_sqlalchemy.test import SQLAlchemyTestCase
 from flask_philo_sqlalchemy.orm import BaseModel
 from flask_philo_sqlalchemy.types import Password
 from sqlalchemy import Column, ForeignKey, Integer, String, Numeric, Boolean
 from sqlalchemy.orm import relationship
-from flask_philo_sqlalchemy.connection import create_pool
-from flask_philo_sqlalchemy import cleandb, syncdb
 from flask_philo_sqlalchemy.exceptions import NotFoundError
 
 import pytest
@@ -33,6 +31,7 @@ class Genre(BaseModel):
     name = Column(String(256))
     description = Column(String(256))
 
+
 class Artist(BaseModel):
     __tablename__ = 'artist'
     name = Column(String(256))
@@ -40,25 +39,22 @@ class Artist(BaseModel):
     albums = relationship('Album', backref='artist')
     genre_id = Column(Integer, ForeignKey('genre.id'))
 
+
 class Album(BaseModel):
     __tablename__ = 'album'
     name = Column(String(256))
     description = Column(String(256))
     artist_id = Column(Integer, ForeignKey('artist.id'))
 
-config = {}
-config['FLASK_PHILO_EXTENSIONS'] = ('Flask-Philo-SQLAlchemy', )
-config['Flask-Philo-SQLAlchemy'] = {
-    'DEFAULT': 'postgresql://ds:dsps@pgdb:5432/ds_test',
-}
 
+class TestCaseModel(SQLAlchemyTestCase):
 
-class TestCaseModel(FlaskPhiloTestCase):
-    def setup(self):
-        self.app = BaseTestFactory.create_test_app(config=config)
-        with self.app.app_context():
-            self.pool = create_pool()
-            syncdb(pool=self.pool)
+    config = {
+        'FLASK_PHILO_EXTENSIONS': ('Flask-Philo-SQLAlchemy', ),
+        'Flask-Philo-SQLAlchemy': {
+            'DEFAULT': 'postgresql://ds:dsps@pgdb:5432/ds_test',
+        }
+    }
 
     def test_simple_insert(self):
         with self.app.app_context():
@@ -101,7 +97,8 @@ class TestCaseModel(FlaskPhiloTestCase):
             dark.add()
             self.pool.commit()
             rolling = Artist(
-                genre_id=rock.id, name='Rolling Stones', description='Acceptable')
+                genre_id=rock.id,
+                name='Rolling Stones', description='Acceptable')
 
             rolling.add()
             self.pool.commit()
@@ -170,7 +167,8 @@ class TestCaseModel(FlaskPhiloTestCase):
             dark.add()
             self.pool.commit()
             rolling = Artist(
-                genre_id=rock.id, name='Rolling Stones', description='Acceptable')
+                genre_id=rock.id,
+                name='Rolling Stones', description='Acceptable')
 
             rolling.add()
             self.pool.commit()
@@ -207,7 +205,8 @@ class TestCaseModel(FlaskPhiloTestCase):
 
     def test_encrypted_password(self):
         with self.app.app_context():
-            user = User(username='username', email='eil@il.com', password='123')
+            user = User(
+                username='username', email='eil@il.com', password='123')
             user.add()
             self.pool.commit()
             id = user.id
@@ -234,9 +233,3 @@ class TestCaseModel(FlaskPhiloTestCase):
         user_model = User(**user_dict)
         assert user_dict['username'] == user_model.username
         assert user_model.email == user_dict['email']
-
-
-    def teardown(self):
-        with self.app.app_context():
-            cleandb()
-            self.pool.close()

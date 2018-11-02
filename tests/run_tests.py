@@ -14,7 +14,6 @@ def main():
     test_cmd = 'pytest -s -q /philo/tests/{}'.format(
         args.test)
 
-    #test_cmd ='python'
     cmd = [
         'docker-compose',
         'run',
@@ -26,10 +25,8 @@ def main():
         test_cmd
     ]
 
-
     try:
         subprocess.call(cmd)
-
     except Exception:
         subprocess.run(cmd)
 
