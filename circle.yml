@@ -21,7 +21,7 @@ jobs:
             curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
-            #pip3 install -r ~/circleci-flaskphilo-sql/tests/tools/provision/requirements.txt
+            pip3 install -r ~/circleci-flaskphilo-sql/tests/tools/requirements/requirements.txt
             cd ~/circleci-flaskphilo-sql && python3 setup.py install
             pip3 install flake8
        
@@ -56,6 +56,7 @@ jobs:
               pyenv global 3.6.3
       - run:
           command: |
+            pip3 install -r ~/circleci-flaskphilo-sql/tests/tools/requirements/requirements.txt
             pip3 install --upgrade setuptools
             sed -i "s/USER/$RIFF_USER/g" .pypirc 
             sed -i "s/PASS/$RIFF_PASS/g" .pypirc 
