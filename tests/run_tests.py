@@ -11,7 +11,7 @@ def main():
 
     args, extra_params = parser.parse_known_args()
 
-    test_cmd = 'pytest -s -q /philo/tests/{}'.format(
+    test_cmd = 'cd /philo && pip3 install -r tests/tools/requirements/requirements.txt && python3 setup.py install && pytest -s -q tests/{}'.format(
         args.test)
 
     cmd = [
@@ -27,7 +27,8 @@ def main():
 
     try:
         subprocess.call(cmd)
-    except Exception:
+    except Exception as e:
+        print(e)
         subprocess.run(cmd)
 
 
