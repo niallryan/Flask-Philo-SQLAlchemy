@@ -11,7 +11,7 @@ def main():
 
     args, extra_params = parser.parse_known_args()
 
-    test_cmd = 'cd /philo && pip3 install -r tests/tools/requirements/requirements.txt > /dev/null && python3 setup.py install > /dev/null && pytest -s -q tests/{}'.format( # noqa
+    test_cmd = 'bash -c "/philo/tests/scripts/wait-for-it.sh" && cd /philo/ && pytest -s -q tests/{}'.format( # noqa
         args.test)
 
     cmd = [
