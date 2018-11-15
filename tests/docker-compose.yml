@@ -14,6 +14,5 @@ services:
       dockerfile: ./Dockerfile.python
     volumes:
       - ../:/philo_alchemy
-      - ../../Flask-Philo-Core:/philo_core
     links:
       - postgresql:pgdb

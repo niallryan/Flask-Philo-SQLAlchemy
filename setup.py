@@ -21,6 +21,9 @@ setup(
     license='Apache',
     install_requires=[
         'Flask-Philo-Core',
+        'jsonschema==2.6.0',
+        'webcolors==1.8.1',
+        'pytest==4.0.0'
 
     ],
     python_requires='>=3.6',
