@@ -18,12 +18,12 @@ Motivation
 don't include database access functionality by default because the main goal is
 to build small packages with only the required libraries for every application.
 The size of the final build is crucial for deployment in serverless environments,
-for this reason Flask-Philo-Core default environment is as mimimalistic as
+for this reason, Flask-Philo-Core's default environment is as mimimalistic as
 possible.
 
 Flask-Philo-SQLAlchemy is a Flask-Philo-Core extension that provides support
-to the `SQLAlchemy <https://docs.sqlalchemy.org>`_ library for those applications
-that required database access.
+for the `SQLAlchemy <https://docs.sqlalchemy.org>`_ library for those applications
+that require database access.
 
 
 Features
@@ -112,7 +112,7 @@ Views
 ##############
 
 Extend ``flask_philo_sqlalchemy.http.SQLAlchemyView`` to create a class based
-view that instanciate a flask_philo_sqlalchemy.connection.ConnectionPool
+view that instanciates a flask_philo_sqlalchemy.connection.ConnectionPool
 object with a connection to each one of the databases defined in configuration:
 
 
@@ -166,7 +166,7 @@ Unit Tests
 
 
 Extend ``flask_philo_sqlalchemy.test.SQLAlchemyTestCase`` to create test cases
-that with active connections to the databases:
+with active connections to the databases:
 
 
 ::
