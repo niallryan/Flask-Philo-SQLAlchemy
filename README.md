@@ -55,7 +55,7 @@ Define one more connection strings to the configuration file:
 ### Models
 
 The following  example shows a basic model that extends from
-```flask_philo_sqlalchemy.orm.BaseModel```:
+``flask_philo_sqlalchemy.orm.BaseModel``:
 
 ```
 
@@ -86,7 +86,7 @@ class User(BaseModel):
 
 ### Views
 
-Extend  flask_philo_sqlalchemy.http.SQLAlchemyView to create a class based
+Extend  ``flask_philo_sqlalchemy.http.SQLAlchemyView`` to create a class based
 view that instanciate a flask_philo_sqlalchemy.connection.ConnectionPool
 object with a connection to each one of the databases defined in configuration:
 
@@ -139,7 +139,7 @@ class UserResourceView(SQLAlchemyView):
 
 ### Unit Tests
 
-Extend ```flask_philo_sqlalchemy.test.SQLAlchemyTestCase``` to create testcases
+Extend ``flask_philo_sqlalchemy.test.SQLAlchemyTestCase`` to create testcases
 that with active connections to the databases:
 
 

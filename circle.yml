@@ -33,7 +33,7 @@ jobs:
       - run:
          name: Running flake8
          command: |
-            flake8 --exclude build,bin ./
+            flake8 --exclude build,bin,documentation ./
       - run:
          name: Running Docker build
          command: |
