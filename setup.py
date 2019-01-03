@@ -8,7 +8,7 @@ Flask-Philo extension that provides Integration with SQLAlchemy
 
 setup(
     name='Flask-Philo-SQLAlchemy',
-    version='0.3.0',
+    version='0.4.0',
     description='Flask-Philo plugin that provides support for SQLAlchemy',
     long_description='',
     packages=[
@@ -20,6 +20,7 @@ setup(
     author_email='maigfrga@gmail.com',
     license='Apache',
     install_requires=[
+        'sqlalchemy',
         'Flask-Philo-Core',
         'jsonschema==2.6.0',
         'webcolors==1.8.1',
