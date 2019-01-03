@@ -21,6 +21,7 @@ setup(
     license='Apache',
     install_requires=[
         'sqlalchemy',
+        'bcrypt',
         'Flask-Philo-Core',
         'jsonschema==2.6.0',
         'webcolors==1.8.1',
