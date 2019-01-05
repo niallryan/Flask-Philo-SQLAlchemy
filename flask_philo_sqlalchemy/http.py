@@ -6,7 +6,7 @@ from flask_philo_core.views import BaseResourceView
 class SQLAlchemyView(BaseResourceView):
     def __init__(self):
         self.app = current_app._get_current_object()
-        if 'Flask-Philo-SQLAlchemy' not in self.app.config:
+        if 'FLASK_PHILO_SQLALCHEMY' not in self.app.config:
             raise ConfigurationError(
                 'Not configuration found for Flask-Philo-SQLAlchemy')
         ctx = _app_ctx_stack.top
