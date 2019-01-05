@@ -13,6 +13,7 @@ RUN apk add --update --no-cache bash alpine-sdk gcc git db-dev make autoconf aut
     python3 pytest
 
 RUN rm -rf /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
+RUN pip3 install --upgrade pip
 RUN pip3 install ipdb 
 
 ENV PYTHONPATH /philo_core:/philo_alchemy

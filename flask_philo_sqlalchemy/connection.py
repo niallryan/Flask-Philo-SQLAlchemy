@@ -29,7 +29,7 @@ class ConnectionPool:
         defined in the configuration file
         """
         for connection_name, connection_string in\
-                self.app.config['Flask-Philo-SQLAlchemy'].items():
+                self.app.config['FLASK_PHILO_SQLALCHEMY'].items():
             engine = create_engine(connection_string)
             session = scoped_session(sessionmaker(), scopefunc=scopefunc)
             session.configure(bind=engine)
@@ -56,7 +56,7 @@ class ConnectionPool:
 
 def create_pool():
     app = current_app._get_current_object()
-    if 'Flask-Philo-SQLAlchemy' not in app.config:
+    if 'FLASK_PHILO_SQLALCHEMY' not in app.config:
         raise ConfigurationError(
             'Not configuration found for Flask-Philo-SQLAlchemy')
     ctx = _app_ctx_stack.top

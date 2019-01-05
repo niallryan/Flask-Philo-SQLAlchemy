@@ -9,8 +9,7 @@ class TestDBAccess(FlaskPhiloTestCase):
         """
         config = {}
         # Creates a Flask-Philo_Core with no postgresql config
-        config['FLASK_PHILO_EXTENSIONS'] = ('Flask-Philo-SQLAlchemy', )
-        config['Flask-Philo-SQLAlchemy'] = {
+        config['FLASK_PHILO_SQLALCHEMY'] = {
             'DEFAULT': 'postgresql://ds:dsps@pgdb:5432/ds_test',
         }
 

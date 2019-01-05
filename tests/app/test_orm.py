@@ -50,8 +50,7 @@ class Album(BaseModel):
 class TestCaseModel(SQLAlchemyTestCase):
 
     config = {
-        'FLASK_PHILO_EXTENSIONS': ('Flask-Philo-SQLAlchemy', ),
-        'Flask-Philo-SQLAlchemy': {
+        'FLASK_PHILO_SQLALCHEMY': {
             'DEFAULT': 'postgresql://ds:dsps@pgdb:5432/ds_test',
         }
     }

@@ -60,18 +60,11 @@ Flask-Philo-Core installation is pretty straightforward:
 Configuration
 ######################
 
-Make sure that your configuration file includes the extension:
-
-::
-
-    'FLASK_PHILO_EXTENSIONS': ('Flask-Philo-SQLAlchemy', ),
-
-
 Define one more connection strings to the configuration file:
 
 ::
 
-    'Flask-Philo-SQLAlchemy': {
+    'FLASK_PHILO_SQLALCHEMY': {
         'DEFAULT': 'postgresql://ds:dsps@pgdb:5432/ds_test',
     }
 
