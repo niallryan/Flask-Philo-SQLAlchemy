@@ -58,7 +58,7 @@ def create_pool():
     app = current_app._get_current_object()
     if 'FLASK_PHILO_SQLALCHEMY' not in app.config:
         raise ConfigurationError(
-            'Not configuration found for Flask-Philo-SQLAlchemy')
+            'Not configuration found for Flask_Philo_SQLAlchemy')
     ctx = _app_ctx_stack.top
     if ctx is not None:
         if not hasattr(ctx, 'sqlalchemy_pool'):

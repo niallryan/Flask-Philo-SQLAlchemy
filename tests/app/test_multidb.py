@@ -9,7 +9,6 @@ class Example(BaseModel):
 
 
 class TestMultiDBModel(SQLAlchemyTestCase):
-
     config = {
         'FLASK_PHILO_SQLALCHEMY': {
             'DEFAULT': 'postgresql://ds:dsps@pgdb:5432/ds_test',
