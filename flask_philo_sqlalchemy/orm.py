@@ -41,7 +41,7 @@ class BaseManager(object):
             raise InvalidQueryError(
                 "Can not execute a query without parameters")
 
-        obj = self._pool.connections[connection_name].session.query(
+        obj = self.pool.connections[connection_name].session.query(
             self._model).with_for_update(
                 nowait=True, of=self._model).filter_by(**kwargs).first()
         if not obj:
@@ -53,7 +53,7 @@ class BaseManager(object):
         if not kwargs:
             raise InvalidQueryError(
                 "Can not execute a query without parameters")
-        obj = self._pool.connections[
+        obj = self.pool.connections[
             connection_name].session.query(
                 self._model).filter_by(**kwargs).first()
 
@@ -73,11 +73,11 @@ class BaseManager(object):
             return 0
 
     def raw_sql(self, sql, connection_name='DEFAULT', **kwargs):
-        return self._pool.connections[
+        return self.pool.connections[
             connection_name].session.execute(text(sql), kwargs)
 
     def add_all(self, data, connection_name='DEFAULT'):
-        return self._pool.connections[connection_name].session.add_all(data)
+        return self.pool.connections[connection_name].session.add_all(data)
 
 
 class BaseModel(Base):
