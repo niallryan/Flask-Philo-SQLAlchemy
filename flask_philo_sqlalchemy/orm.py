@@ -100,6 +100,19 @@ class BaseModel(Base):
         }
         return val
 
+    @property
+    def json(self):
+        val = {
+            k: v for k, v in self.dict.items()
+            if (not k == 'created_at')
+            and (not k == 'updated_at')
+            and (not k == 'id')
+        }
+
+        val['id'] = val['key']
+        del(val['key'])
+        return val
+
     @declared_attr
     def objects(cls):
         return BaseManager(cls)
