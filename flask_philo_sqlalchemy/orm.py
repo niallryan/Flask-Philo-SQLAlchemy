@@ -26,7 +26,7 @@ class BaseManager(object):
         self, order_by='id', limit=500, offset=0,
             connection_name='DEFAULT', **kwargs):
 
-        return self._pool.connections[connection_name].session.query(
+        return self.pool.connections[connection_name].session.query(
             self._model
             ).filter_by(
                 **kwargs
